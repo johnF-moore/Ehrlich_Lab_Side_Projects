@@ -5,6 +5,7 @@ editor: visual
 ---
 
 **Gene names have been changed because the results have not been published.**
+## This script starts with trying to fit a linear model to the gene expression for a variety of cell types and then does spline regression.
 
 ```{r setup, include= FALSE}
 knitr::opts_chunk$set(echo = F)
@@ -25,6 +26,7 @@ library(broom)
 # Functions
 ##---------
 lm_summaries <- function(df, group_col, x, y){
+  ## This function runs linear models for all groups and produces a data.frame with a summary output for each model.
   lm_summary <- df %>%
   nest(data = -{{group_col}}) %>% 
   mutate(
@@ -55,7 +57,7 @@ model_facet_plot <- function(df,x, y, lm_group, title){
 }
 
 bspline_testing <- function(train_df, test_df, x, y, group_col, dfs, degree){
-
+  ## Spline regression wrapper that produces plots and measures the model performance on the test data 
   groups <- unique(train_df[,group_col, drop= TRUE])
   
   for(group in groups){
@@ -120,7 +122,7 @@ bspline_testing <- function(train_df, test_df, x, y, group_col, dfs, degree){
 gene1 <- here("modeling_perinatal/data/Gene1_for_John.csv") %>% 
   read.csv() %>% 
   pivot_longer(!X, names_to= "day") %>% 
-  mutate(day= as.numeric(gsub("X|\\.\\d+","", day)),
+  mutate(day= as.numeric(gsub("X|\\.\\d+","", day)), ## regex fun
          ln_value= log(value + 1e-6)) %>% 
   as.data.frame()
 
