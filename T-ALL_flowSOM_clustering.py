@@ -1,3 +1,9 @@
+## I wrote this script for one of the undergraduates I work with to use. 
+## The purpose of it is to cluster flow cytometry data using a self-organizing map called flowSOM. 
+## He ran it on a couple example data sets and analyzed the clustering with my seurat wrappers. 
+
+
+
 ## FlowSOM code comes from https://github.com/Hatchin/FlowSOM
 import sys
 sys.path.append("/stor/home/jfm2773/opt/FlowSOM/script")
@@ -19,6 +25,8 @@ from FlowCytometryTools import FCMeasurement
 from sklearn.cluster import AgglomerativeClustering
 import os 
 ## This script needs to be run in the flowSOM virtual environment.
+
+
 
 def flowSOM_wrapper(path, file_name, min_n, max_n, iter_n, prop_n, out_path, drop_cols= None):
     if drop_cols is None:
